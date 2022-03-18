@@ -1,6 +1,10 @@
 import { serve } from "https://deno.land/std@0.127.0/http/server.ts";
 import { serveDir } from "https://deno.land/std@0.127.0/http/file_server.ts";
 import { format } from "https://deno.land/std@0.127.0/datetime/mod.ts";
+import { Todo } from "./todo.ts";
+
+// ToDo の API は Todo クラスにまとめてある
+const todo = new Todo();
 
 console.log("Listening on http://localhost:8000");
 serve((req) => {
@@ -18,6 +22,12 @@ serve((req) => {
                 return apiFourArithmeticOperations(req);
             case "/api/reverse":
                 return apiReverse(req);
+            case "/api/todo/list":
+                return todo.apiList(req);
+            case "/api/todo/add":
+                return todo.apiAdd(req);
+            case "/api/todo/delete":
+                return todo.apiDelete(req);
         }
     }
 
